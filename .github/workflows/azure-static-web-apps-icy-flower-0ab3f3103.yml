@@ -42,7 +42,7 @@ jobs:
           # For more information regarding Static Web App workflow configurations, please visit: https://aka.ms/swaworkflowconfig
           app_location: "stronachmury/" # App source code path
           api_location: "" # Api source code path - optional
-          output_location: "src/build" # Built app content directory - optional
+          output_location: "build" # Built app content directory - optional
           github_id_token: ${{ steps.idtoken.outputs.result }}
           app_build_command: 'npm run build' # Dodaj tutaj swoje polecenie budowania
           ###### End of Repository/Build Configurations ######
