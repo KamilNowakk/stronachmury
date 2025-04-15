@@ -3,5 +3,5 @@ import ReactDOM from 'react-dom/client';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
-  <h1>To w czwartek rowery? XD</h1>
+  <h1>O któej idziemy do sklepu? XD</h1>
 );
