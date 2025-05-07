@@ -3,6 +3,7 @@ import React, { useState, useEffect } from "react";
 const ProductList = () => {
   const [products, setProducts] = useState([]);
 
+  // Funkcja do pobierania produktów z backendu
   useEffect(() => {
     const fetchProducts = async () => {
       const response = await fetch("http://localhost:5000/api/products");
@@ -12,6 +13,20 @@ const ProductList = () => {
 
     fetchProducts();
   }, []);
+
+  // Funkcja do usuwania produktu
+  const handleDelete = async (id) => {
+    const response = await fetch(`http://localhost:5000/api/products/${id}`, {
+      method: "DELETE",
+    });
+
+    if (response.ok) {
+      setProducts(products.filter((product) => product.id !== id));
+      alert("Produkt usunięty!");
+    } else {
+      alert("Błąd podczas usuwania produktu!");
+    }
+  };
 
   return (
     <div>
@@ -23,6 +38,7 @@ const ProductList = () => {
             <p>{product.description}</p>
             <p>{product.price} PLN</p>
             <p>{product.category}</p>
+            <button onClick={() => handleDelete(product.id)}>Usuń</button>
           </li>
         ))}
       </ul>

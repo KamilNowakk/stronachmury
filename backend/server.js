@@ -46,6 +46,31 @@ app.post("/api/products", async (req, res) => {
   }
 });
 
+// Endpoint do usuwania produktu
+app.delete("/api/products/:id", async (req, res) => {
+  const { id } = req.params;
+  try {
+    // Wykonaj zapytanie DELETE w bazie danych
+    const result = await pool.query(
+      "DELETE FROM products WHERE id = $1 RETURNING *",
+      [id]
+    );
+
+    // Sprawdzenie, czy produkt został znaleziony
+    if (result.rowCount === 0) {
+      return res.status(404).json({ error: "Produkt nie został znaleziony" });
+    }
+
+    // Zwrócenie usuniętego produktu
+    res
+      .status(200)
+      .json({ message: "Produkt usunięty", product: result.rows[0] });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: "Błąd bazy danych" });
+  }
+});
+
 // Start serwera
 app.listen(port, () => {
   console.log(`Serwer działa na porcie ${port}`);
